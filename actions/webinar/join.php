@@ -35,9 +35,14 @@
 			add_to_river('river/relationship/attendee/create','attendee',$user->guid,$webinar->guid);
 			
 		
-			$url = $webinar->joinAdminURL($user);
+			$container = get_entity($webinar_guid);
+                        if ($container->canEdit())
+                            $url = $webinar->joinAdminURL($user);
+                                               
+                        else{
+                            $url = $webinar->joinURL($user);
+                        }
 			forward($url);
-			
 		}
 		
 	}else{
